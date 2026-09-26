@@ -8,14 +8,50 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#F3F5F6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101315" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23154738'/%3E%3Cpath d='M9 10h14M16 10v13' stroke='%234DE0AA' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="canonical" href="https://memotvoret.github.io/trata/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Trata">
+<meta property="og:title" content="Trata — личные финансы на iPhone">
+<meta property="og:description" content="Расходы, бюджет, поездки и счета — в одном приложении. Русский, English, Română. Скоро в App Store.">
+<meta property="og:url" content="https://memotvoret.github.io/trata/">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="ro_RO">
+<meta property="og:image" content="https://memotvoret.github.io/trata/trata-social.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Trata — расходы, бюджет и поездки. Скоро в App Store.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trata — личные финансы на iPhone">
+<meta name="twitter:description" content="Понимайте свои расходы, планируйте бюджет и делите расходы поездки. Скоро в App Store.">
+<meta name="twitter:image" content="https://memotvoret.github.io/trata/trata-social.jpg">
+<meta name="twitter:image:alt" content="Trata — расходы, бюджет и поездки. Скоро в App Store.">
+<link rel="icon" type="image/png" sizes="32x32" href="trata-favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="trata-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="trata-icon.png">
 <link rel="stylesheet" href="style.css">
+<style>
+.brand-mark { overflow: hidden; }
+.brand-mark img { display: block; width: 36px; height: 36px; }
+.release-note { display: inline-block; padding: 6px 12px; border-radius: 99px; font-size: 14px; font-weight: 650; background: var(--surface-elevated); color: var(--text); margin: 4px 0 16px; }
+.hero .release-note { color: #BCF8DF; background: #10342A; }
+.showcase { margin: 24px 0 28px; min-width: 0; }
+.showcase h2, .showcase h3 { margin: 0 0 6px; }
+.showcase-hint { font-size: 14px; color: var(--text-secondary); margin-bottom: 14px; }
+.screen-gallery { display: flex; gap: 14px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; padding: 4px 2px 14px; scrollbar-color: var(--accent) var(--surface-elevated); }
+.screen-gallery figure { flex: 0 0 clamp(250px, 77vw, 300px); margin: 0; min-width: 0; scroll-snap-align: start; }
+.screen-gallery a { display: block; border-radius: 20px; overflow: hidden; background: #081511; border: 1px solid var(--hairline); }
+.screen-gallery img { display: block; width: 100%; height: auto; aspect-ratio: 660 / 1434; }
+.screen-gallery figcaption { margin: 10px 2px 0; color: var(--text-secondary); font-size: 14px; }
+.showcase a:focus-visible { outline-offset: 0; }
+@media (prefers-reduced-motion: reduce) { .screen-gallery { scroll-behavior: auto; } }
+</style>
 </head>
 <body>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html">
-      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M4 5h12M10 5v11" stroke="#4DE0AA" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+      <span class="brand-mark" aria-hidden="true"><img src="trata-favicon.png" width="36" height="36" alt=""></span>
       Trata
     </a>
     <nav class="nav" aria-label="Разделы сайта">
@@ -35,12 +71,26 @@
 
   <section class="hero" id="ru" lang="ru">
     <h1>Trata</h1>
+    <p class="release-note">Скоро в App Store</p>
     <p>Учёт расходов на iPhone: сколько можно потратить сегодня, бюджет месяца, поездки, копилки и долги с друзьями. Покупки по Apple Pay могут записываться сами.</p>
     <div class="hero-tiles">
       <div class="hero-tile"><b>Без аккаунта</b><span>ни регистрации, ни рекламы, ни аналитики</span></div>
       <div class="hero-tile"><b>Ваш iCloud</b><span>данные на устройстве и в приватной базе iCloud</span></div>
     </div>
   </section>
+
+  <div class="showcase" lang="ru" aria-labelledby="screens-ru">
+<h2 id="screens-ru">Посмотрите, как это работает</h2>
+<p class="showcase-hint">Листайте экраны. Нажмите на изображение, чтобы рассмотреть его.</p>
+<div class="screen-gallery" role="group" aria-label="Посмотрите, как это работает">
+<figure><a href="trata-ru-01.webp"><img src="trata-ru-01.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Обзор. Все траты месяца под рукой"></a><figcaption>01 · Обзор</figcaption></figure>
+<figure><a href="trata-ru-02.webp"><img src="trata-ru-02.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Ввод траты. Быстрый ввод без лишних шагов"></a><figcaption>02 · Ввод траты</figcaption></figure>
+<figure><a href="trata-ru-03.webp"><img src="trata-ru-03.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Аналитика. Понятно, куда уходят деньги"></a><figcaption>03 · Аналитика</figcaption></figure>
+<figure><a href="trata-ru-04.webp"><img src="trata-ru-04.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Бюджет. Знайте, сколько можно сегодня"></a><figcaption>04 · Бюджет</figcaption></figure>
+<figure><a href="trata-ru-05.webp"><img src="trata-ru-05.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Поездка. В поездке — только ваша доля"></a><figcaption>05 · Поездка</figcaption></figure>
+<figure><a href="trata-ru-06.webp"><img src="trata-ru-06.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Счета. Все счета. Один итог."></a><figcaption>06 · Счета</figcaption></figure>
+</div>
+</div>
 
   <section class="card">
     <h2>Что умеет</h2>
@@ -66,6 +116,19 @@
   <section class="card" id="en" lang="en">
     <h2>Trata — everyday expense tracking</h2>
     <p>See where your money goes and how much you spend each month. Record an expense quickly, set category budgets, and check Available today on Home.</p>
+    <p class="release-note">Coming soon to the App Store</p>
+<div class="showcase" lang="en" aria-labelledby="screens-en">
+<h3 id="screens-en">Take a look inside</h3>
+<p class="showcase-hint">Swipe through the screens. Tap an image for a closer look.</p>
+<div class="screen-gallery" role="group" aria-label="Take a look inside">
+<figure><a href="trata-en-01.webp"><img src="trata-en-01.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Home. Your month, at a glance"></a><figcaption>01 · Home</figcaption></figure>
+<figure><a href="trata-en-02.webp"><img src="trata-en-02.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Expense entry. Quick entry. Back to your day."></a><figcaption>02 · Expense entry</figcaption></figure>
+<figure><a href="trata-en-03.webp"><img src="trata-en-03.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Analytics. See where your money goes"></a><figcaption>03 · Analytics</figcaption></figure>
+<figure><a href="trata-en-04.webp"><img src="trata-en-04.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Budget. Know what you can spend today"></a><figcaption>04 · Budget</figcaption></figure>
+<figure><a href="trata-en-05.webp"><img src="trata-en-05.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Trip. Shared trip. Just your share."></a><figcaption>05 · Trip</figcaption></figure>
+<figure><a href="trata-en-06.webp"><img src="trata-en-06.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Accounts. All accounts. One total."></a><figcaption>06 · Accounts</figcaption></figure>
+</div>
+</div>
     <h3>What you can do</h3>
     <ul>
       <li>Track expenses, income, refunds, and transfers between Accounts in multiple currencies, with official exchange rates from the National Bank of Moldova.</li>
@@ -86,6 +149,19 @@
   <section class="card" id="ro" lang="ro">
     <h2>Trata — cheltuielile de zi cu zi</h2>
     <p>Vezi unde se duc banii și cât cheltuiești în fiecare lună. Înregistrează rapid o cheltuială, stabilește bugete pe categorii și verifică Disponibil azi în Acasă.</p>
+    <p class="release-note">În curând în App Store</p>
+<div class="showcase" lang="ro" aria-labelledby="screens-ro">
+<h3 id="screens-ro">Vezi cum arată aplicația</h3>
+<p class="showcase-hint">Glisează pentru a vedea ecranele. Apasă o imagine pentru detalii.</p>
+<div class="screen-gallery" role="group" aria-label="Vezi cum arată aplicația">
+<figure><a href="trata-ro-01.webp"><img src="trata-ro-01.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Acasă. Cheltuielile lunii, la îndemână"></a><figcaption>01 · Acasă</figcaption></figure>
+<figure><a href="trata-ro-02.webp"><img src="trata-ro-02.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Introducerea cheltuielii. Adaugă rapid o cheltuială"></a><figcaption>02 · Introducerea cheltuielii</figcaption></figure>
+<figure><a href="trata-ro-03.webp"><img src="trata-ro-03.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Analiză. Vezi unde se duc banii"></a><figcaption>03 · Analiză</figcaption></figure>
+<figure><a href="trata-ro-04.webp"><img src="trata-ro-04.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Buget. Vezi cât poți cheltui azi"></a><figcaption>04 · Buget</figcaption></figure>
+<figure><a href="trata-ro-05.webp"><img src="trata-ro-05.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Călătorie. În călătorie, doar partea ta"></a><figcaption>05 · Călătorie</figcaption></figure>
+<figure><a href="trata-ro-06.webp"><img src="trata-ro-06.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Conturi. Toate conturile. Un singur total."></a><figcaption>06 · Conturi</figcaption></figure>
+</div>
+</div>
     <h3>Ce poți face</h3>
     <ul>
       <li>Urmărește cheltuieli, venituri, rambursări și transferuri între Conturi în mai multe monede, cu cursurile oficiale ale Băncii Naționale a Moldovei.</li>
