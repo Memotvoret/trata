@@ -18,15 +18,15 @@ concurrency:
 
 jobs:
   update-and-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7.0.1
         with:
           ref: main
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7.0.0
         with:
           python-version: '3.12'
       - name: Collect and validate public prices
@@ -45,19 +45,19 @@ jobs:
           mkdir -p _site/fuel
           find . -maxdepth 1 -type f \( -name '*.html' -o -name '*.css' -o -name '*.png' -o -name '*.webp' -o -name '*.jpg' -o -name 'CNAME' \) -exec cp {} _site/ \;
           cp -R fuel/v1 _site/fuel/
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: _site
       - name: Keep source diagnostics
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: fuel-source-report
           path: ${{ runner.temp }}/fuel-report.json
           retention-days: 14
           if-no-files-found: ignore
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     needs: update-and-build
     permissions:
@@ -69,4 +69,4 @@ jobs:
     steps:
       - name: Deploy the updated static site
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5.0.1
