@@ -84,9 +84,15 @@
       <li>Действия Trata в Siri и «Командах» (например, «Записать трату») выполняются на устройстве. Голосовой запрос к Siri обрабатывает Apple по своим правилам.</li>
     </ul>
 
+    <h2>Покупки и Trata Pro</h2>
+    <ul>
+      <li>Оплату подписок и разовой покупки Trata Pro обрабатывает Apple. Trata не получает номер карты, банковские реквизиты или другие платёжные данные.</li>
+      <li>Приложение проверяет на устройстве через StoreKit сведения о том, активна ли покупка, чтобы открыть доступ к Pro. StoreKit взаимодействует с сервисами Apple для покупки, восстановления и проверки доступа. Эти сведения не отправляются на сервер разработчика; собственного сервера покупок у Trata нет. Apple обрабатывает покупки по своим условиям и политике конфиденциальности.</li>
+      <li>Окончание Pro не удаляет ваши записи и не закрывает к ним доступ: их можно смотреть, править, удалять и выгружать.</li>
+    </ul>
     <h2>Интернет: курсы валют</h2>
     <ul>
-      <li>Единственный сетевой запрос, который Trata отправляет сама, — к сайту Национального банка Молдовы (bnm.md) за официальными курсами валют.</li>
+      <li>За официальными курсами валют Trata обращается к сайту Национального банка Молдовы (bnm.md). Отдельно StoreKit взаимодействует с Apple для покупок и проверки доступа к Trata Pro (см. «Покупки и Trata Pro»).</li>
       <li>Запрос уходит, когда приложению нужен курс на дату, которого ещё нет на устройстве: при открытии приложения — за свежими курсами (обычно раз в день) и чтобы уточнить курсы, помеченные как приблизительные; при записи операции в другой валюте, в том числе при автозаписи покупки из «Команд» без открытия приложения; при пересчёте сумм в другую валюту — например, при смене основной валюты или валюты показа, в счетах, копилках, долгах, переводах и общих счетах. Поэтому за день может быть несколько запросов за разные даты. Полученные курсы сохраняются на устройстве.</li>
       <li>В адресе запроса есть только дата нужного курса — часто это дата вашей операции в другой валюте. Кроме неё передаются лишь стандартные технические заголовки iOS (название и номер сборки приложения, версия системы, язык устройства). Суммы, валюты, операции и идентификаторы не передаются.</li>
       <li>Как любой веб-сервер, сайт банка видит IP-адрес устройства; эти данные обрабатывает банк по своим правилам, у разработчика к ним доступа нет.</li>
@@ -193,9 +199,15 @@
       <li>The purchase is saved on the device without opening the app and is then stored like any other transaction. If the purchase currency differs from your main currency, an exchange rate request may be sent to bnm.md at that point (see “Internet: exchange rates”).</li>
       <li>Trata actions in Siri and Shortcuts (such as “Save expense”) run on the device. Apple processes voice requests to Siri under its own policies.</li>
     </ul>
+    <h2>Purchases and Trata Pro</h2>
+    <ul>
+      <li>Apple processes payments for Trata Pro subscriptions and the lifetime purchase. Trata does not receive your card number, bank details or other payment information.</li>
+      <li>The app uses StoreKit on your device to check whether a purchase is active and unlock Pro. StoreKit communicates with Apple services to purchase, restore and verify access. This information is not sent to a developer server; Trata has no purchase server of its own. Apple handles purchases under its own terms and privacy policy.</li>
+      <li>When Pro ends, your records are not deleted or locked: you can view, edit, delete and export them.</li>
+    </ul>
     <h2>Internet: exchange rates</h2>
     <ul>
-      <li>The only network request Trata sends on its own is to the National Bank of Moldova website (bnm.md) for official exchange rates.</li>
+      <li>Trata requests official exchange rates from the National Bank of Moldova website (bnm.md). Separately, StoreKit communicates with Apple for purchases and to check access to Trata Pro (see “Purchases and Trata Pro”).</li>
       <li>A request is sent when the app needs an exchange rate for a date that is not yet stored on the device: when you open the app, to get current rates (usually once a day) and update rates marked as approximate; when you record a transaction in another currency, including when Shortcuts automatically logs a purchase without opening the app; and when amounts are converted to another currency — for example, when changing the main or display currency, or in accounts, savings goals, debts, transfers, and shared bills. There may therefore be several requests for different dates in a day. Downloaded rates are saved on the device.</li>
       <li>The request URL contains only the date of the required exchange rate — often the date of your transaction in another currency. Apart from this, only standard iOS technical headers are sent (app name and build number, system version, and device language). Amounts, currencies, transactions, and identifiers are not sent.</li>
       <li>Like any web server, the bank's website sees the device's IP address. The bank processes this data under its own policies; the developer cannot access it.</li>
@@ -294,9 +306,15 @@
       <li>Cumpărătura se salvează pe dispozitiv fără deschiderea aplicației și apoi se păstrează ca orice altă tranzacție. Dacă moneda cumpărăturii diferă de moneda principală, în acel moment se poate trimite o cerere pentru cursul de schimb către bnm.md (vezi „Internet: cursuri valutare”).</li>
       <li>Acțiunile Trata din Siri și Scurtături (de exemplu, „Salvează cheltuiala”) se execută pe dispozitiv. Solicitările vocale către Siri sunt procesate de Apple conform propriilor politici.</li>
     </ul>
+    <h2>Achiziții și Trata Pro</h2>
+    <ul>
+      <li>Apple procesează plățile pentru abonamentele Trata Pro și achiziția pe viață. Trata nu primește numărul cardului, date bancare sau alte date de plată.</li>
+      <li>Aplicația verifică pe dispozitiv, prin StoreKit, dacă achiziția este activă pentru a oferi acces la Pro. StoreKit comunică cu serviciile Apple pentru cumpărare, restabilire și verificarea accesului. Aceste informații nu sunt trimise unui server al dezvoltatorului; Trata nu are un server propriu pentru achiziții. Apple prelucrează achizițiile conform propriilor condiții și politici de confidențialitate.</li>
+      <li>Expirarea Pro nu șterge și nu blochează înregistrările: le poți vedea, modifica, șterge și exporta.</li>
+    </ul>
     <h2>Internet: cursuri valutare</h2>
     <ul>
-      <li>Singura cerere de rețea trimisă de Trata din proprie inițiativă este către site-ul Băncii Naționale a Moldovei (bnm.md), pentru cursurile valutare oficiale.</li>
+      <li>Trata solicită cursuri valutare oficiale de la Banca Națională a Moldovei (bnm.md). Separat, StoreKit comunică cu Apple pentru achiziții și verificarea accesului la Trata Pro (vezi „Achiziții și Trata Pro”).</li>
       <li>Cererea se trimite când aplicația are nevoie de un curs pentru o dată care nu este încă stocat pe dispozitiv: la deschiderea aplicației, pentru cursuri actuale (de obicei o dată pe zi) și pentru actualizarea cursurilor marcate ca aproximative; la înregistrarea unei tranzacții în altă monedă, inclusiv când Scurtături înregistrează automat o cumpărătură fără deschiderea aplicației; la conversia sumelor în altă monedă — de exemplu, când schimbi moneda principală sau moneda de afișare ori în conturi, economii, datorii, transferuri și note comune. Prin urmare, într-o zi pot fi trimise mai multe cereri pentru date diferite. Cursurile primite se salvează pe dispozitiv.</li>
       <li>Adresa cererii conține doar data cursului necesar — adesea data tranzacției tale în altă monedă. În afară de aceasta, se transmit doar antete tehnice standard iOS (numele aplicației și numărul ei de compilare, versiunea sistemului, limba dispozitivului). Nu se transmit sume, monede, tranzacții sau identificatori.</li>
       <li>Ca orice server web, site-ul băncii vede adresa IP a dispozitivului; banca prelucrează aceste date conform propriilor politici, iar dezvoltatorul nu are acces la ele.</li>
