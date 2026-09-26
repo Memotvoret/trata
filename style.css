@@ -1,0 +1,191 @@
+/* Trata — общий стиль сайта. Палитра из DESIGN_SPEC.md, системный шрифт, без внешних файлов. */
+
+:root {
+  color-scheme: light dark;
+  --bg: #F3F5F6;
+  --surface: #FFFFFF;
+  --surface-elevated: #ECEFF1;
+  --hairline: #E3E7EA;
+  --text: #0E1113;
+  --text-secondary: #5F676E;
+  --text-caption: #687076;
+  --accent: #0A7C56;
+  --on-accent: #FFFFFF;
+  --hero: #154738;
+  --hero-tile: #10342A;
+  --hero-glyph: #4DE0AA;
+  --on-hero: #FFFFFF;
+  --radius-card: 20px;
+  --radius-hero: 24px;
+  --gutter: 16px;
+  --max: 760px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101315;
+    --surface: #1C1F23;
+    --surface-elevated: #2A2E33;
+    --hairline: #24282C;
+    --text: #FFFFFF;
+    --text-secondary: #8E959B;
+    --text-caption: #80888E;
+    --accent: #43DCA3;
+    --on-accent: #0B1512;
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible,
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Шапка */
+.site-header { padding: 20px 0 8px; }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 700; font-size: 20px; }
+.brand-mark {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--hero); display: inline-grid; place-items: center;
+}
+.brand-mark svg { width: 20px; height: 20px; }
+.nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.nav a {
+  color: var(--text-secondary); text-decoration: none; font-size: 15px; font-weight: 500;
+  padding: 7px 12px; border-radius: 999px; background: var(--surface);
+}
+.nav a[aria-current="page"] { color: var(--accent); }
+
+main { padding: 12px 0 40px; }
+
+h1 { font-size: 32px; line-height: 1.15; margin: 16px 0 8px; letter-spacing: -0.01em; }
+h2 { font-size: 22px; line-height: 1.25; margin: 32px 0 10px; }
+h3 { font-size: 18px; line-height: 1.3; margin: 22px 0 6px; }
+p { margin: 0 0 12px; }
+ul { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+li::marker { color: var(--text-caption); }
+
+.lead { color: var(--text-secondary); font-size: 19px; }
+.meta { color: var(--text-caption); font-size: 15px; }
+.muted { color: var(--text-secondary); }
+
+/* Hero — как крупная карточка-итог в приложении */
+.hero {
+  background: var(--hero);
+  color: var(--on-hero);
+  border-radius: var(--radius-hero);
+  padding: 24px;
+  margin: 16px 0 20px;
+}
+.hero h1 { margin-top: 0; color: var(--on-hero); }
+.hero p { color: rgba(255, 255, 255, 0.85); }
+.hero a { color: var(--hero-glyph); }
+.hero-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 18px; }
+.hero-tile { background: var(--hero-tile); border-radius: 16px; padding: 12px 14px; }
+.hero-tile b { display: block; color: var(--on-hero); font-size: 16px; }
+.hero-tile span { color: rgba(255, 255, 255, 0.7); font-size: 14px; }
+
+/* Карточки */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  margin: 0 0 14px;
+}
+@media (prefers-color-scheme: light) {
+  .card { border: 1px solid var(--hairline); }
+}
+.card > :last-child { margin-bottom: 0; }
+.card h2, .card h3 { margin-top: 0; }
+
+.links { list-style: none; padding: 0; margin: 0; }
+.links li { margin: 0; border-top: 1px solid var(--hairline); }
+.links li:first-child { border-top: 0; }
+.links a {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 14px 0; color: var(--text); text-decoration: none; font-weight: 500;
+}
+.links a::after { content: "›"; color: var(--text-caption); font-size: 22px; line-height: 1; }
+.links small { display: block; color: var(--text-secondary); font-weight: 400; font-size: 15px; }
+
+.button {
+  display: inline-block; background: var(--accent); color: var(--on-accent);
+  text-decoration: none; font-weight: 600; padding: 12px 18px; border-radius: 14px;
+}
+.button:hover { filter: brightness(1.05); }
+
+.badge {
+  display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--text-secondary); background: var(--surface-elevated);
+  padding: 3px 10px; border-radius: 999px; vertical-align: middle;
+}
+
+/* Частые вопросы */
+details {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 0 18px;
+  margin: 0 0 10px;
+}
+@media (prefers-color-scheme: light) {
+  details { border: 1px solid var(--hairline); }
+}
+summary {
+  cursor: pointer; list-style: none; font-weight: 600; padding: 15px 28px 15px 0; position: relative;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: "+"; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  color: var(--accent); font-size: 22px; font-weight: 400;
+}
+details[open] summary::after { content: "−"; }
+details > :not(summary) { color: var(--text-secondary); }
+details > :last-child { padding-bottom: 14px; margin-bottom: 0; }
+
+/* Переключатель языка */
+.lang { display: flex; gap: 6px; margin: 8px 0 4px; }
+.lang a {
+  text-decoration: none; font-size: 15px; font-weight: 600; padding: 6px 12px;
+  border-radius: 999px; background: var(--surface); color: var(--text-secondary);
+}
+.lang a:hover { color: var(--accent); }
+
+.policy h2 { font-size: 20px; }
+.policy section { scroll-margin-top: 16px; }
+hr { border: 0; border-top: 1px solid var(--hairline); margin: 40px 0; }
+
+.site-footer { color: var(--text-caption); font-size: 14px; padding: 8px 0 32px; }
+.site-footer a { color: var(--text-secondary); }
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  h1 { font-size: 27px; }
+  h2 { font-size: 20px; }
+  .lead { font-size: 17px; }
+  .hero { padding: 20px 18px; }
+  .card { padding: 16px; }
+}
