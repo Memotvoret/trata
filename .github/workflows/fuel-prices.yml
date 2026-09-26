@@ -22,6 +22,8 @@ jobs:
     timeout-minutes: 20
     permissions:
       contents: write
+    outputs:
+      stale: ${{ steps.freshness.outputs.stale }}
     steps:
       - uses: actions/checkout@v7.0.1
         with:
@@ -30,7 +32,21 @@ jobs:
         with:
           python-version: '3.12'
       - name: Collect and validate public prices
-        run: python3 fuel/build_feed.py --report "$RUNNER_TEMP/fuel-report.json"
+        run: python3 fuel/build_feed.py --report "$RUNNER_TEMP/fuel-report.json" --defer-stale-error
+      - name: Record freshness for the post-deploy check
+        id: freshness
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads((Path(os.environ['RUNNER_TEMP'])/'fuel-report.json').read_text())
+          assert report['publicationReady'], 'Collection failed before safe publication'
+          errors = report['freshnessErrors']
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('stale=' + str(bool(errors)).lower() + '\n')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('## Fuel freshness\n' + ('\n'.join('- '+e for e in errors) if errors else 'Both countries are fresh.') + '\n')
+          PY
       - name: Save changed data only
         run: |
           git add -- fuel/v1
@@ -70,3 +86,8 @@ jobs:
       - name: Deploy the updated static site
         id: deployment
         uses: actions/deploy-pages@v5.0.1
+      - name: Fail stale sources after publishing healthy updates
+        if: ${{ always() && needs.update-and-build.outputs.stale == 'true' }}
+        run: |
+          echo '::error::One or more country feeds are stale. Healthy updates were prepared for publication; inspect the deployment step and fuel-source-report.'
+          exit 1
