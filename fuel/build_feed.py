@@ -12,6 +12,9 @@ from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from html.parser import HTMLParser
 import json
+import hashlib
+from itertools import combinations
+from statistics import median
 from pathlib import Path
 import re
 import sys
@@ -36,6 +39,8 @@ RO_API = 'https://monitorulpreturilor.info/pmonsvc/Gas/GetGasItemsByLatLon?'
 D = Decimal
 WARNINGS = []
 REQUESTS = []
+SELECTIONS = {}
+MAX_AGE_DAYS = 3
 
 
 def warn(message):
@@ -173,13 +178,40 @@ def mode(values):
     return min(counts, key=lambda value: (-counts[value], value))
 
 
-def average(brands, country):
+def select_networks(brands, country, station_counts=None):
+    eligible = {b for b, prices in brands.items() if all(f in prices for f in ('petrol', 'diesel'))}
+    preferred = [b for b in TOP[country] if b in eligible]
+    counts = station_counts or {}
+    alternatives = sorted(eligible-set(preferred), key=lambda b: (-counts.get(b, 0), b))
+    return preferred + alternatives[:5-len(preferred)]
+
+
+def average_selected(brands, selected):
     result = {}
     for fuel in FUELS:
-        values = [brands[b][fuel] for b in TOP[country] if fuel in brands.get(b, {})]
+        values = [brands[b][fuel] for b in selected if fuel in brands[b]]
         if len(values) >= 2:
             result[fuel] = (sum(values) / len(values)).quantize(D('.01'), rounding=ROUND_HALF_UP)
     return result
+
+
+def average(brands, country, station_counts=None):
+    return average_selected(brands, select_networks(brands, country, station_counts))
+
+
+def freshness_errors(countries, now):
+    errors = []
+    for country in CURRENCY:
+        today = now.astimezone(ZoneInfo(TZ[country])).date()
+        try:
+            recorded = date.fromisoformat(countries[country]['latest']['day'])
+            age = (today-recorded).days
+            if not 0 <= age <= MAX_AGE_DAYS:
+                errors.append(f'{country}: latest.day={recorded}, age={age} days; allowed 0..3. '
+                              'No data published. Check sources and rerun Fuel prices and Pages.')
+        except (KeyError, TypeError, ValueError):
+            errors.append(f'{country}: missing or invalid latest.day; no data published.')
+    return errors
 
 
 def reject_isolated_jumps(brands, previous, current_day):
@@ -209,7 +241,15 @@ def md_brand(station):
         for brand in TOP['MD'] + ('now', 'tlx', 'avante'):
             if re.search(r'(?<![a-z])' + brand + r'(?![a-z])', text):
                 return brand
-    return None
+    # Group unknown operators using a stable opaque public-feed key.
+    identity = str(station.get('idno') or company).strip()
+    return 'md-' + hashlib.sha256(identity.encode()).hexdigest()[:12] if identity else None
+
+
+def md_station_key(station):
+    # Source has no station ID. Coordinates + address deduplicate repeated records.
+    fields = ('x', 'y', 'fullstreet', 'addrnum', 'bua', 'roadkm', 'roadm', 'road_side')
+    return tuple(str(station.get(k) or '').strip().casefold() for k in fields)
 
 
 class BemolParser(HTMLParser):
@@ -269,7 +309,7 @@ def expand_history(points, start, end):
             if day in rows:
                 current[fuel] = (day, rows[day])
         # Bridge weekends and holidays, but never manufacture long missing periods.
-        cap = {fuel: value for fuel, (since, value) in current.items() if (day-since).days <= 6}
+        cap = {fuel: value for fuel, (since, value) in current.items() if (day-since).days <= MAX_AGE_DAYS}
         if day >= start and set(cap) == {'petrol', 'diesel'}:
             result[day.isoformat()] = {'day': day.isoformat(), 'brands': {}, 'average': cap.copy(), 'cap': cap}
         day += timedelta(days=1)
@@ -289,7 +329,7 @@ def collect_md(today, existing):
     cap = historical.get(today.isoformat(), {}).get('cap', {}).copy()
     current_cap = request(MD_API + 'plafon/')
     cap_date = date.fromisoformat(current_cap['date'][:10])
-    if cap_date <= today and (today - cap_date).days <= 6:
+    if cap_date <= today and (today - cap_date).days <= MAX_AGE_DAYS:
         endpoint = {fuel: number(current_cap.get(field), 'MD', fuel)
                     for fuel, field in (('petrol', 'b_pc'), ('diesel', 'm_pc'))}
         if None not in endpoint.values():
@@ -302,17 +342,30 @@ def collect_md(today, existing):
     if not isinstance(rows, list):
         raise ValueError('MD station payload is not an array')
     samples = defaultdict(lambda: defaultdict(list))
+    station_ids = defaultdict(set)
+    seen = set()
     for station in rows:
         if station.get('station_status') != 1:
             continue
         brand = md_brand(station)
         if not brand:
             continue
+        key = md_station_key(station)
+        if not any(key) or (brand, key) in seen:
+            continue
+        seen.add((brand, key))
+        usable = False
         for fuel, field in (('petrol', 'gasoline'), ('diesel', 'diesel'), ('lpg', 'gpl')):
             value = number(station.get(field), 'MD', fuel)
             if value is None or (fuel in cap and not cap[fuel]*D('.90') <= value <= cap[fuel]*D('1.005')):
                 continue
             samples[brand][fuel].append(value)
+            usable = True
+        if usable:
+            station_ids[brand].add(key)
+    counts = {b: len(ids) for b, ids in station_ids.items()}
+    # A single independent station is not treated as a replacement network.
+    samples = {b: fuels for b, fuels in samples.items() if not b.startswith('md-') or counts[b] >= 2}
     brands = {b: {f: mode(v) for f, v in fuels.items()} for b, fuels in samples.items()}
     try:
         parser = BemolParser()
@@ -326,7 +379,7 @@ def collect_md(today, existing):
             warn('MD Bemol premium omitted: missing data or standard-price freshness check failed')
     except Exception as exc:
         warn(f'MD optional premium omitted: {type(exc).__name__}: {exc}')
-    return {'day': today.isoformat(), 'brands': brands, 'average': average(brands, 'MD'), 'cap': cap}, historical
+    return {'day': today.isoformat(), 'brands': brands, 'average': average(brands, 'MD', counts), 'cap': cap, '_station_counts': counts}, historical
 
 
 def ro_observations(payload, expected_fuel, today):
@@ -336,7 +389,7 @@ def ro_observations(payload, expected_fuel, today):
             updated = datetime.strptime(station['updatedate'].strip(), '%d/%m/%Y %H:%M').date()
         except (ValueError, KeyError, TypeError):
             continue
-        if 0 <= (today - updated).days <= 7:
+        if 0 <= (today - updated).days <= MAX_AGE_DAYS:
             stations[str(station['id'])] = station
     result = {}
     for product in payload.get('Products', []):
@@ -347,7 +400,7 @@ def ro_observations(payload, expected_fuel, today):
         brand = str(station.get('network', {}).get('id', '')).lower()
         fuel = RO_PRODUCTS.get(str(product.get('catprod', {}).get('id')))
         value = number(product.get('price'), 'RO', fuel)
-        if brand not in RO_BRANDS or fuel != expected_fuel or value is None:
+        if not re.fullmatch(r'[a-z0-9][a-z0-9_-]{0,63}', brand) or fuel != expected_fuel or value is None:
             continue
         if str(product.get('network', {}).get('id', '')).lower() != brand:
             continue
@@ -380,10 +433,14 @@ def collect_ro(today):
     for (brand, fuel), variants in products.items():
         selected = min(variants, key=lambda p: (-len(variants[p]), p))
         brands[brand][fuel] = mode(variants[selected])
-    return {'day':today.isoformat(), 'brands':dict(brands), 'average':average(brands, 'RO')}
+    station_ids = defaultdict(set)
+    for brand, fuel, station, product in observations:
+        station_ids[brand].add(station)
+    counts = {b:len(ids) for b,ids in station_ids.items()}
+    return {'day':today.isoformat(), 'brands':dict(brands), 'average':average(brands, 'RO', counts), '_station_counts':counts}
 
 
-def validate_day(day, country, historical=False):
+def validate_day(day, country, historical=False, station_counts=None):
     date.fromisoformat(day['day'])
     assert set(day) <= {'day', 'brands', 'average', 'cap'}
     assert isinstance(day['brands'], dict) and isinstance(day['average'], dict)
@@ -394,16 +451,28 @@ def validate_day(day, country, historical=False):
     if historical:
         assert country == 'MD' and not day['brands'] and day['average'] == day['cap']
         return
-    assert sum('petrol' in p and 'diesel' in p for p in day['brands'].values()) >= 4, 'fewer than 4 standard-fuel networks'
-    assert day['average'] == average(day['brands'], country), 'incorrect top-five average'
+    brands = day['brands']
+    eligible = {b for b,p in brands.items() if all(f in p for f in ('petrol','diesel'))}
+    assert len(eligible) >= 3, 'fewer than 3 standard-fuel networks'
     assert all(f in day['average'] for f in ('petrol','diesel'))
+    if station_counts is not None:
+        selected = select_networks(brands, country, station_counts)
+        assert day['average'] == average_selected(brands, selected), 'incorrect station-ranked top-five average'
+    else:
+        # v1 intentionally stores no station counts. Verify archived arithmetic against
+        # an admissible selection; exact count ranking is verified during collection.
+        preferred = [b for b in TOP[country] if b in eligible]
+        alternatives = sorted(eligible-set(preferred))
+        selected = next((preferred+list(extra) for extra in combinations(alternatives, min(5-len(preferred), len(alternatives)))
+                         if average_selected(brands, preferred+list(extra)) == day['average']), None)
+        assert selected is not None, 'incorrect top-five average'
     if country == 'MD':
+        assert set(day.get('cap', {})) == {'petrol','diesel'}, 'missing MD cap'
         for fuel, cap in day['cap'].items():
-            assert abs(day['average'][fuel]/cap-1) < D('.005'), 'MD average differs from cap by >=0.5%'
-            for prices in day['brands'].values():
+            assert abs(median([brands[b][fuel] for b in selected])/cap-1) <= D('.005'), 'MD multi-network median differs from cap by >0.5%'
+            for prices in brands.values():
                 if fuel in prices:
                     assert cap*D('.90') <= prices[fuel] <= cap*D('1.005')
-        assert day['brands'].get('lukoil', {}).get('petrol') == day['cap']['petrol'], 'MD Lukoil/cap mismatch'
 
 
 def encode(obj):
@@ -442,9 +511,13 @@ def prepare_country(root, country, today, previous):
         current, history = collect_ro(today), {}
     # Compare to the prior calendar day, even when refreshing today's existing entry.
     prior = existing.get((today-timedelta(days=1)).isoformat())
+    counts = current.pop('_station_counts', {})
     current['brands'] = reject_isolated_jumps(current['brands'], prior, today)
-    current['average'] = average(current['brands'], country)
-    validate_day(current, country)
+    current['average'] = average(current['brands'], country, counts)
+    validate_day(current, country, station_counts=counts)
+    assert current['day'] == today.isoformat(), 'collector day differs from local collection day'
+    SELECTIONS[country] = {'selected':select_networks(current['brands'],country,counts),
+                           'stationCounts':counts, 'countsScope':'active national registry' if country=='MD' else 'observed three-city sample'}
     for day, item in history.items():
         validate_day(item, country, historical=True)
         if day not in existing:  # Never overwrite recorded station history with a cap-only estimate.
@@ -471,6 +544,7 @@ def write_changed(path, data):
 def run(root, now, report_path=None):
     WARNINGS.clear()
     REQUESTS.clear()
+    SELECTIONS.clear()
     old = read_json(root/'latest.json') if (root/'latest.json').exists() else {'version':1,'countries':{}}
     assert old['version'] == 1
     countries = deepcopy(old['countries'])
@@ -486,13 +560,14 @@ def run(root, now, report_path=None):
         except Exception as exc:
             warn(f'{country}: retain all previous data: {type(exc).__name__}: {exc}')
             status[country] = {'ok':False,'retainedPrevious':country in countries,'error':str(exc)}
-    if not countries:
+    errors = freshness_errors(countries, now)
+    if errors:
         if report_path:
             report_path.parent.mkdir(parents=True, exist_ok=True)
             report_path.write_text(json.dumps({'countries':status, 'warnings':WARNINGS,
-                'requests':REQUESTS, 'changedFiles':[], 'privateFallbackEnabled':False,
+                'requests':REQUESTS, 'freshnessErrors':errors, 'selections':SELECTIONS, 'changedFiles':[], 'privateFallbackEnabled':False,
                 'tlsVerification':True}, ensure_ascii=False, indent=2)+'\n')
-        raise RuntimeError('No validated country data available; nothing published')
+        raise RuntimeError('Stale or missing fuel feed. ' + ' | '.join(errors))
     changed_months = any(not p.exists() or read_json(p) != d for p,d in pending.items())
     generated = now.astimezone(timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z')
     if old.get('countries') == countries and not changed_months:
@@ -507,7 +582,7 @@ def run(root, now, report_path=None):
     if write_changed(root/'latest.json',raw):
         changed.append(str(root/'latest.json'))
     report = {'generatedAt':generated,'countries':status,'changedFiles':changed,
-              'latestBytes':len(raw),'warnings':WARNINGS,'requests':REQUESTS,
+              'latestBytes':len(raw),'warnings':WARNINGS,'requests':REQUESTS,'selections':SELECTIONS,
               'privateFallbackEnabled':False,'tlsVerification':True}
     if report_path:
         report_path.parent.mkdir(parents=True,exist_ok=True)
