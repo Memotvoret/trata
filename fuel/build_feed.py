@@ -208,9 +208,9 @@ def freshness_errors(countries, now):
             age = (today-recorded).days
             if not 0 <= age <= MAX_AGE_DAYS:
                 errors.append(f'{country}: latest.day={recorded}, age={age} days; allowed 0..3. '
-                              'No data published. Check sources and rerun Fuel prices and Pages.')
+                              'Previous country data retained. Check sources and rerun Fuel prices and Pages.')
         except (KeyError, TypeError, ValueError):
-            errors.append(f'{country}: missing or invalid latest.day; no data published.')
+            errors.append(f'{country}: missing or invalid latest.day; check source and initial feed.')
     return errors
 
 
@@ -541,6 +541,10 @@ def write_changed(path, data):
     return True
 
 
+class StaleFeedError(RuntimeError):
+    """Validated healthy countries have been written; report must fail after deployment."""
+
+
 def run(root, now, report_path=None):
     WARNINGS.clear()
     REQUESTS.clear()
@@ -561,13 +565,15 @@ def run(root, now, report_path=None):
             warn(f'{country}: retain all previous data: {type(exc).__name__}: {exc}')
             status[country] = {'ok':False,'retainedPrevious':country in countries,'error':str(exc)}
     errors = freshness_errors(countries, now)
-    if errors:
+    # Bootstrap requires a complete v1 shape. Existing stale countries remain untouched.
+    if set(countries) != set(CURRENCY):
         if report_path:
             report_path.parent.mkdir(parents=True, exist_ok=True)
             report_path.write_text(json.dumps({'countries':status, 'warnings':WARNINGS,
-                'requests':REQUESTS, 'freshnessErrors':errors, 'selections':SELECTIONS, 'changedFiles':[], 'privateFallbackEnabled':False,
+                'requests':REQUESTS, 'freshnessErrors':errors, 'selections':SELECTIONS,
+                'changedFiles':[], 'publicationReady':False, 'privateFallbackEnabled':False,
                 'tlsVerification':True}, ensure_ascii=False, indent=2)+'\n')
-        raise RuntimeError('Stale or missing fuel feed. ' + ' | '.join(errors))
+        raise RuntimeError('Initial fuel feed incomplete. ' + ' | '.join(errors))
     changed_months = any(not p.exists() or read_json(p) != d for p,d in pending.items())
     generated = now.astimezone(timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z')
     if old.get('countries') == countries and not changed_months:
@@ -582,12 +588,14 @@ def run(root, now, report_path=None):
     if write_changed(root/'latest.json',raw):
         changed.append(str(root/'latest.json'))
     report = {'generatedAt':generated,'countries':status,'changedFiles':changed,
-              'latestBytes':len(raw),'warnings':WARNINGS,'requests':REQUESTS,'selections':SELECTIONS,
+              'latestBytes':len(raw),'freshnessErrors':errors,'publicationReady':True,'warnings':WARNINGS,'requests':REQUESTS,'selections':SELECTIONS,
               'privateFallbackEnabled':False,'tlsVerification':True}
     if report_path:
         report_path.parent.mkdir(parents=True,exist_ok=True)
         report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'countries':status,'latestBytes':len(raw),'changedFiles':len(changed)},ensure_ascii=False))
+    if errors:
+        raise StaleFeedError('Healthy country updates written; fail after deployment. ' + ' | '.join(errors))
     return report
 
 
@@ -595,8 +603,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,default=Path(__file__).resolve().parent/'v1')
     parser.add_argument('--report',type=Path)
+    parser.add_argument('--defer-stale-error',action='store_true',
+                        help='CI only: deploy healthy updates, then fail using report.freshnessErrors')
     args = parser.parse_args()
-    run(args.output,datetime.now(timezone.utc),args.report)
+    if args.defer_stale_error and not args.report:
+        parser.error('--defer-stale-error requires --report for the post-deploy failure gate')
+    try:
+        run(args.output,datetime.now(timezone.utc),args.report)
+    except StaleFeedError as exc:
+        if not args.defer_stale_error:
+            raise
+        print(str(exc))
 
 
 if __name__ == '__main__':
