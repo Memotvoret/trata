@@ -1,0 +1,72 @@
+name: Fuel prices and Pages
+
+on:
+  schedule:
+    # Requested UTC slots. In winter local time is one hour earlier.
+    - cron: '20 21 * * *'
+    - cron: '40 9 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trata-pages
+  cancel-in-progress: false
+
+jobs:
+  update-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Collect and validate public prices
+        run: python3 fuel/build_feed.py --report "$RUNNER_TEMP/fuel-report.json"
+      - name: Save changed data only
+        run: |
+          git add -- fuel/v1
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'Update daily fuel prices'
+            git push origin HEAD:main
+          fi
+      - name: Package public site only
+        run: |
+          mkdir -p _site/fuel
+          find . -maxdepth 1 -type f \( -name '*.html' -o -name '*.css' -o -name '*.png' -o -name '*.webp' -o -name '*.jpg' -o -name 'CNAME' \) -exec cp {} _site/ \;
+          cp -R fuel/v1 _site/fuel/
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Keep source diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuel-source-report
+          path: ${{ runner.temp }}/fuel-report.json
+          retention-days: 14
+          if-no-files-found: ignore
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: update-and-build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the updated static site
+        id: deployment
+        uses: actions/deploy-pages@v4
