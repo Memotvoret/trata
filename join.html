@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'unsafe-inline'; img-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Invitation · Trata</title>
+<link rel="icon" href="trata-favicon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+.join-wrap{max-width:520px;margin:0 auto;padding:24px 20px 32px}.join-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:36px}.join-brand{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:750;text-decoration:none;color:var(--text)}.join-brand img{border-radius:11px}.join-langs{display:flex;gap:4px}.join-langs button{font:inherit;font-size:13px;background:transparent;color:var(--text-secondary);border:0;padding:10px 8px;min-height:44px;border-radius:14px;cursor:pointer}.join-langs button[aria-pressed=true]{color:var(--accent);background:var(--surface-elevated);font-weight:700}.invite-card{padding:28px 24px;background:var(--hero);color:var(--on-hero);border-radius:var(--radius-hero)}.invite-label{color:#BCF8DF;font-size:14px;margin:0 0 20px}.invite-card h1{font-size:clamp(25px,7vw,34px);line-height:1.18;letter-spacing:-.03em;margin:0;overflow-wrap:anywhere}.invite-card p:last-child{color:#D3E9DF;margin:18px 0 0;line-height:1.5}.join-actions{display:grid;gap:12px;margin-top:24px}.join-actions a{display:flex;justify-content:center;align-items:center;text-align:center;min-height:56px;padding:12px 18px;border-radius:16px;font-weight:700;text-decoration:none}.join-primary{background:var(--accent);color:var(--on-accent)}.join-secondary{background:var(--surface);color:var(--text);border:1px solid var(--hairline)}.join-note{font-size:15px;color:var(--text-secondary);line-height:1.5;margin:18px 2px 0}.join-privacy{border-top:1px solid var(--hairline);padding-top:20px;margin-top:28px;font-size:13px;color:var(--text-secondary)}[hidden]{display:none!important}button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}noscript p{padding:16px;background:var(--surface);border-radius:16px}@media(max-width:350px){.join-wrap{padding:18px 14px}.invite-card{padding:22px 18px}.join-brand{font-size:19px}.join-langs button{padding:10px 6px}}
+</style>
+</head>
+<body>
+<main class="join-wrap">
+  <header class="join-head">
+    <a class="join-brand" href="index.html"><img src="trata-favicon.png" width="40" height="40" alt="">Trata</a>
+    <nav class="join-langs" aria-label="Language / Язык / Limbă">
+      <button type="button" data-lang="ru" aria-label="Русский" aria-pressed="false">RU</button>
+      <button type="button" data-lang="en" aria-label="English" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ro" aria-label="Română" aria-pressed="false">RO</button>
+    </nav>
+  </header>
+  <section class="invite-card" aria-labelledby="invite-title">
+    <p class="invite-label" id="invite-label">TRATA · INVITATION</p>
+    <h1 id="invite-title">Open your invitation link</h1>
+    <p id="invite-detail">Use the full link sent to you by the organiser.</p>
+  </section>
+  <div class="join-actions">
+    <a id="open-app" class="join-primary" hidden>Open in Trata</a>
+    <!-- index.html has no App Store URL at the task-33 baseline. ID verified in ASTRA_REPORT_24.md. -->
+    <a id="get-app" class="join-secondary" href="https://apps.apple.com/app/id6816365297" rel="noreferrer">Download Trata</a>
+  </div>
+  <p class="join-note" id="install-note" hidden>After installing, return to this page and tap “Open in Trata”.</p>
+  <p class="join-privacy" id="privacy-note">This page has no analytics. Invitation details stay in your browser until you choose to open Trata.</p>
+  <noscript><p>Enable JavaScript to read the invitation on this device. / Включите JavaScript, чтобы прочитать приглашение на этом устройстве. / Activați JavaScript pentru a citi invitația pe acest dispozitiv.</p></noscript>
+</main>
+<script>
+(() => {
+  'use strict';
+  const copy = {
+    ru: {
+      title: 'Приглашение · Trata', label: 'TRATA · ПРИГЛАШЕНИЕ',
+      personal: (name, from, title) => `Привет, ${name}! ${from ? from + ' зовёт вас' : 'Вас зовут'} в «${title}»`,
+      general: title => `Вас зовут в «${title}»`, fallback: 'Общие расходы',
+      detail: 'Участвуйте бесплатно. Нужны Trata на iPhone и iCloud. Подписка для участия не нужна.',
+      open: 'Открыть в Trata', download: 'Скачать Trata',
+      install: 'После установки вернитесь на эту страницу и нажмите «Открыть в Trata».',
+      empty: 'Откройте ссылку-приглашение', emptyDetail: 'Перейдите по полной ссылке, которую вам прислал организатор.',
+      invalid: 'Не удалось прочитать приглашение', invalidDetail: 'Попросите организатора прислать ссылку ещё раз.',
+      privacy: 'На странице нет аналитики. Данные приглашения остаются в браузере, пока вы сами не откроете Trata.'
+    },
+    en: {
+      title: 'Invitation · Trata', label: 'TRATA · INVITATION',
+      personal: (name, from, title) => `Hi, ${name}! ${from ? from + ' invites you' : 'You’re invited'} to “${title}”`,
+      general: title => `You’re invited to “${title}”`, fallback: 'Shared expenses',
+      detail: 'Join for free with Trata on your iPhone and iCloud. No subscription needed to join.',
+      open: 'Open in Trata', download: 'Download Trata',
+      install: 'After installing, return to this page and tap “Open in Trata”.',
+      empty: 'Open your invitation link', emptyDetail: 'Use the full link sent to you by the organiser.',
+      invalid: 'We couldn’t read this invitation', invalidDetail: 'Ask the organiser to send you the link again.',
+      privacy: 'This page has no analytics. Invitation details stay in your browser until you choose to open Trata.'
+    },
+    ro: {
+      title: 'Invitație · Trata', label: 'TRATA · INVITAȚIE',
+      personal: (name, from, title) => `Bună, ${name}! ${from ? from + ' vă invită' : 'Sunteți invitat(ă)'} să participați la „${title}”`,
+      general: title => `Sunteți invitat(ă) să participați la „${title}”`, fallback: 'Cheltuieli comune',
+      detail: 'Participați gratuit. Aveți nevoie de Trata pe iPhone și de iCloud. Participarea nu necesită abonament.',
+      open: 'Deschideți în Trata', download: 'Descărcați Trata',
+      install: 'După instalare, reveniți aici și apăsați „Deschideți în Trata”.',
+      empty: 'Deschideți linkul invitației', emptyDetail: 'Folosiți linkul complet trimis de organizator.',
+      invalid: 'Invitația nu a putut fi citită', invalidDetail: 'Rugați organizatorul să vă trimită din nou linkul.',
+      privacy: 'Pagina nu folosește instrumente de analiză. Datele invitației rămân în browser până când alegeți să deschideți Trata.'
+    }
+  };
+  const supported = Object.keys(copy);
+  let lang = (navigator.languages || [navigator.language || 'en'])
+    .map(value => value.toLowerCase().split('-')[0]).find(value => supported.includes(value)) || 'en';
+  const node = id => document.getElementById(id);
+  const plain = value => {
+    if (typeof value !== 'string') return '';
+    const clean = value.replace(/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/gu, ' ').replace(/\s+/gu, ' ').trim();
+    const parts = typeof Intl.Segmenter === 'function'
+      ? Array.from(new Intl.Segmenter(undefined, {granularity: 'grapheme'}).segment(clean), item => item.segment)
+      : Array.from(clean);
+    return parts.slice(0, 60).join('');
+  };
+  const read = () => {
+    const token = location.hash.slice(1);
+    if (!token) return {state: 'empty'};
+    try {
+      if (token.length >= 4096 || !/^[A-Za-z0-9_-]+$/.test(token) || token.length % 4 === 1) throw new Error();
+      const base64 = token.replace(/-/g, '+').replace(/_/g, '/');
+      const bytes = Uint8Array.from(atob(base64.padEnd(Math.ceil(base64.length / 4) * 4, '=')), ch => ch.charCodeAt(0));
+      const payload = JSON.parse(new TextDecoder('utf-8', {fatal: true}).decode(bytes));
+      if (!payload || Array.isArray(payload) || payload.v !== 1 || typeof payload.s !== 'string') throw new Error();
+      const share = new URL(payload.s);
+      if (share.protocol !== 'https:' || share.hostname !== 'www.icloud.com' || !share.pathname.startsWith('/share/') || share.username || share.password || share.port) throw new Error();
+      for (const key of ['n', 't', 'f', 'm']) if (payload[key] != null && typeof payload[key] !== 'string') throw new Error();
+      return {state: 'valid', token, name: plain(payload.n), title: plain(payload.t), from: plain(payload.f)};
+    } catch (_) { return {state: 'invalid'}; }
+  };
+  const render = () => {
+    const c = copy[lang], invitation = read();
+    document.documentElement.lang = lang;
+    document.title = c.title;
+    node('invite-label').textContent = c.label;
+    node('open-app').textContent = c.open;
+    node('get-app').textContent = c.download;
+    node('install-note').textContent = c.install;
+    node('privacy-note').textContent = c.privacy;
+    document.querySelectorAll('[data-lang]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === lang)));
+    const valid = invitation.state === 'valid';
+    node('open-app').hidden = !valid;
+    node('install-note').hidden = !valid;
+    node('open-app').removeAttribute('href');
+    if (valid) {
+      const title = invitation.title || c.fallback;
+      node('invite-title').textContent = invitation.name ? c.personal(invitation.name, invitation.from, title) : c.general(title);
+      node('invite-detail').textContent = c.detail;
+      node('open-app').setAttribute('href', 'trata://join#' + invitation.token);
+    } else {
+      node('invite-title').textContent = c[invitation.state];
+      node('invite-detail').textContent = c[invitation.state + 'Detail'];
+    }
+  };
+  document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => { lang = button.dataset.lang; render(); }));
+  window.addEventListener('hashchange', render);
+  render();
+})();
+</script>
+</body>
+</html>
