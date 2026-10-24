@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-itunes-app" content="app-id=6816365297">
 <title>Trata — учёт расходов</title>
-<meta name="description" content="Trata — приложение для iPhone для учёта расходов, бюджета, поездок и долгов. Данные хранятся на устройстве и в вашем iCloud.">
+<meta name="description" content="Trata — приложение для iPhone для учёта расходов: автозапись покупок, бюджет, поездки, семья и своё дело. Данные хранятся на устройстве и в вашем iCloud. Уже в App Store.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#F3F5F6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101315" media="(prefers-color-scheme: dark)">
@@ -12,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Trata">
 <meta property="og:title" content="Trata — личные финансы на iPhone">
-<meta property="og:description" content="Расходы, бюджет, поездки и счета — в одном приложении. Русский, English, Română. Скоро в App Store.">
+<meta property="og:description" content="Расходы, бюджет, поездки, семья и своё дело — в одном приложении. Русский, English, Română. Уже в App Store.">
 <meta property="og:url" content="https://memotvoret.github.io/trata/">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:locale:alternate" content="en_US">
@@ -20,12 +21,12 @@
 <meta property="og:image" content="https://memotvoret.github.io/trata/trata-social.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Trata — расходы, бюджет и поездки. Скоро в App Store.">
+<meta property="og:image:alt" content="Trata — расходы, бюджет и поездки. Уже в App Store.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Trata — личные финансы на iPhone">
-<meta name="twitter:description" content="Понимайте свои расходы, планируйте бюджет и делите расходы поездки. Скоро в App Store.">
+<meta name="twitter:description" content="Понимайте свои расходы, планируйте бюджет и делите расходы поездки. Уже в App Store.">
 <meta name="twitter:image" content="https://memotvoret.github.io/trata/trata-social.jpg">
-<meta name="twitter:image:alt" content="Trata — расходы, бюджет и поездки. Скоро в App Store.">
+<meta name="twitter:image:alt" content="Trata — расходы, бюджет и поездки. Уже в App Store.">
 <link rel="icon" type="image/png" sizes="32x32" href="trata-favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="trata-touch-icon.png">
 <link rel="icon" type="image/png" sizes="512x512" href="trata-icon.png">
@@ -44,6 +45,8 @@
 .screen-gallery img { display: block; width: 100%; height: auto; aspect-ratio: 660 / 1434; }
 .screen-gallery figcaption { margin: 10px 2px 0; color: var(--text-secondary); font-size: 14px; }
 .showcase a:focus-visible { outline-offset: 0; }
+.store-badge { display: inline-block; margin: 6px 0 16px; line-height: 0; }
+.store-badge img { display: block; height: 52px; width: auto; }
 @media (prefers-reduced-motion: reduce) { .screen-gallery { scroll-behavior: auto; } }
 
 .plan-comparison{margin:20px 0}.plan-comparison h2{margin:0 0 16px}.plan-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.plan-column{min-width:0}.plan-column h3{font-size:18px}.plan-note{border-top:1px solid var(--hairline);padding-top:16px;color:var(--text-secondary);font-size:15px}.guide-link h3{margin:0 0 8px}.guide-link p{color:var(--text-secondary)}@media(max-width:600px){.plan-columns{grid-template-columns:1fr;gap:12px}}
@@ -73,8 +76,8 @@
 
   <section class="hero" id="ru" lang="ru">
     <h1>Trata</h1>
-    <p class="release-note">Скоро в App Store</p>
-    <p>Учёт расходов на iPhone: сколько можно потратить сегодня, бюджет месяца, поездки, копилки и долги с друзьями. Покупки по Apple Pay могут записываться сами.</p>
+    <a class="store-badge" href="https://apps.apple.com/app/id6816365297"><img src="appstore-white-ru.svg" width="156" height="52" alt="Загрузите в App Store"></a>
+    <p>Учёт расходов на iPhone. Заплатили телефоном на кассе — покупка записалась сама: автозапись из Wallet настраивается один раз. Весь месяц одной цифрой, бюджет и «можно сегодня», поездки с друзьями, семья и своё дело.</p>
     <div class="hero-tiles">
       <div class="hero-tile"><b>Без аккаунта</b><span>ни регистрации, ни рекламы, ни аналитики</span></div>
       <div class="hero-tile"><b>Ваш iCloud</b><span>данные на устройстве и в приватной базе iCloud</span></div>
@@ -85,29 +88,34 @@
 <h2 id="screens-ru">Посмотрите, как это работает</h2>
 <p class="showcase-hint">Листайте экраны. Нажмите на изображение, чтобы рассмотреть его.</p>
 <div class="screen-gallery" role="group" aria-label="Посмотрите, как это работает">
-<figure><a href="trata-ru-01.webp"><img src="trata-ru-01.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Обзор. Все траты месяца под рукой"></a><figcaption>01 · Обзор</figcaption></figure>
-<figure><a href="trata-ru-02.webp"><img src="trata-ru-02.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Ввод траты. Быстрый ввод без лишних шагов"></a><figcaption>02 · Ввод траты</figcaption></figure>
-<figure><a href="trata-ru-03.webp"><img src="trata-ru-03.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Аналитика. Понятно, куда уходят деньги"></a><figcaption>03 · Аналитика</figcaption></figure>
-<figure><a href="trata-ru-04.webp"><img src="trata-ru-04.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Бюджет. Знайте, сколько можно сегодня"></a><figcaption>04 · Бюджет</figcaption></figure>
-<figure><a href="trata-ru-05.webp"><img src="trata-ru-05.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Поездка. В поездке — только ваша доля"></a><figcaption>05 · Поездка</figcaption></figure>
-<figure><a href="trata-ru-06.webp"><img src="trata-ru-06.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Счета. Все счета. Один итог."></a><figcaption>06 · Счета</figcaption></figure>
+<figure><a href="trata-ru-01.webp"><img src="trata-ru-01.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Обзор. Весь месяц одной цифрой"></a><figcaption>01 · Обзор</figcaption></figure>
+<figure><a href="trata-ru-02.webp"><img src="trata-ru-02.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Автозапись. Заплатили телефоном — покупка уже записана"></a><figcaption>02 · Автозапись</figcaption></figure>
+<figure><a href="trata-ru-03.webp"><img src="trata-ru-03.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Наличные. Сумма, категория — готово"></a><figcaption>03 · Наличные</figcaption></figure>
+<figure><a href="trata-ru-04.webp"><img src="trata-ru-04.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Аналитика. Прогноз месяца и куда уходят деньги"></a><figcaption>04 · Аналитика</figcaption></figure>
+<figure><a href="trata-ru-05.webp"><img src="trata-ru-05.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Карта стран. Где вы были — на карте"></a><figcaption>05 · Карта стран</figcaption></figure>
+<figure><a href="trata-ru-06.webp"><img src="trata-ru-06.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Поездка с друзьями. Кто сколько заплатил и кто кому должен"></a><figcaption>06 · Поездка с друзьями</figcaption></figure>
+<figure><a href="trata-ru-07.webp"><img src="trata-ru-07.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Коммунальные. Что оплачено, а что ещё нет"></a><figcaption>07 · Коммунальные</figcaption></figure>
+<figure><a href="trata-ru-08.webp"><img src="trata-ru-08.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Бизнес. Заказы, касса и доли мастеров"></a><figcaption>08 · Бизнес</figcaption></figure>
+<figure><a href="trata-ru-09.webp"><img src="trata-ru-09.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Семья. Покупки партнёра — у вас на экране"></a><figcaption>09 · Семья</figcaption></figure>
 </div>
 </div>
 
   <section class="card">
     <h2>Что умеет</h2>
     <ul>
+      <li>Автозапись покупок, оплаченных телефоном: один раз настройте автоматизацию Wallet в «Командах». Банк подключать не нужно.</li>
+      <li>Весь месяц одной цифрой, бюджет, лимиты категорий и «можно сегодня»; в аналитике — прогноз итога месяца.</li>
       <li>Расходы, доходы и переводы между счетами в разных валютах — по официальным курсам Национального банка Молдовы.</li>
-      <li>Бюджет месяца, лимиты категорий и «можно сегодня».</li>
-      <li>Автозапись покупок Apple Pay через приложение «Команды», Siri и виджеты.</li>
-      <li>Скан чека камерой с распознаванием суммы прямо на iPhone.</li>
-      <li>Поездки с общими счетами и расчётом между участниками, долги, копилки.</li>
-      <li>Резервная копия и выгрузка в CSV и JSON.</li>
+      <li>Поездки: свой бюджет, карта стран и общий счёт с друзьями — синхронно на iPhone каждого участника.</li>
+      <li>Семья: покупки партнёра видны на вашем iPhone и входят в бюджет месяца.</li>
+      <li>Бизнес: заказы, касса и доли мастеров — отдельно от личных расходов.</li>
+      <li>Коммунальные платежи, мероприятия, долги, копилки и транспорт.</li>
+      <li>Скан чека, Siri, виджеты, резервная копия и выгрузка в CSV и JSON.</li>
     </ul>
   </section>
 
 <!-- ASTRA8:plans:ru:start -->
-<section class="plan-comparison card" lang="ru" aria-labelledby="plans-ru"><h2 id="plans-ru">Бесплатно и Pro</h2><div class="plan-columns"><div class="plan-column"><h3>Для ежедневного учёта — бесплатно</h3><ul><li>Ручной ввод, чеки, импорт выписки и автозапись Apple Pay через «Команды».</li><li>Обзор, история, поиск, категории, «Можно сегодня» и лимит месяца.</li><li>Аналитика текущего и прошлого месяца, до 3 счетов с переводами и валюты.</li><li>iCloud, Face ID, скрытие сумм, резервные копии и экспорт.</li><li>Виджеты, Siri, язык, нижняя панель и вечерняя сводка.</li></ul></div><div class="plan-column"><h3>Trata Pro</h3><ul><li>Поездки, мероприятия, общие счета и долги.</li><li>Транспорт: заправки, стоимость 1 км, обслуживание и документы.</li><li>Лимиты категорий и перенос между ними, аналитика за любой период.</li><li>Неограниченные счета, копилки и постоянные платежи.</li></ul></div></div><p class="plan-note">7 дней бесплатно для новых подписчиков, которым доступно предложение Apple. Затем подписка платная, если её не отменить. У покупки навсегда пробного периода нет.</p><p>Семейный доступ: Pro можно разделить с семьёй Apple. Ваши личные записи при этом не становятся общими.</p><p><strong>Записанное всегда доступно: после окончания Pro можно смотреть, править, удалять и выгружать свои данные.</strong></p><p><a href="help.html?lang=ru#pro">Справочник</a> · <a href="support.html#pro-ru">Поддержка</a></p></section>
+<section class="plan-comparison card" lang="ru" aria-labelledby="plans-ru"><h2 id="plans-ru">Бесплатно и Pro</h2><div class="plan-columns"><div class="plan-column"><h3>Для ежедневного учёта — бесплатно</h3><ul><li>Ручной ввод, чеки, импорт выписки и автозапись покупок из Wallet через «Команды».</li><li>Обзор, история, поиск, категории, «Можно сегодня» и лимит месяца.</li><li>Аналитика текущего и прошлого месяца, до 3 счетов с переводами и валюты.</li><li>iCloud, Face ID, скрытие сумм, резервные копии и экспорт.</li><li>Виджеты, Siri, язык, нижняя панель и вечерняя сводка.</li></ul></div><div class="plan-column"><h3>Trata Pro</h3><ul><li>Поездки, мероприятия, общие счета и долги.</li><li>Семья, Бизнес и коммунальные платежи.</li><li>Транспорт: заправки, стоимость 1 км, обслуживание и документы.</li><li>Лимиты категорий и перенос между ними, аналитика за любой период.</li><li>Неограниченные счета, копилки и постоянные платежи.</li></ul></div></div><p class="plan-note">7 дней бесплатно для новых подписчиков, которым доступно предложение Apple. Затем подписка платная, если её не отменить. У покупки навсегда пробного периода нет.</p><p>Семейный доступ: Pro можно разделить с семьёй Apple. Ваши личные записи при этом не становятся общими.</p><p><strong>Записанное всегда доступно: после окончания Pro можно смотреть, править, удалять и выгружать свои данные.</strong></p><p><a href="help.html?lang=ru#pro">Справочник</a> · <a href="support.html#pro-ru">Поддержка</a></p></section>
 <!-- ASTRA8:plans:ru:end -->
 <!-- ASTRA8:guide:ru:start -->
 <aside class="card guide-link" lang="ru"><h3><a href="help.html?lang=ru#ru">Как пользоваться Trata</a></h3><p>Пошаговые инструкции: автозапись, бюджет, поездки, счета и стоимость 1 км.</p></aside>
@@ -124,35 +132,40 @@
   <section class="card" id="en" lang="en">
     <h2>Trata — everyday expense tracking</h2>
     <p>See where your money goes and how much you spend each month. Record an expense quickly, set category budgets, and check Available today on Home.</p>
-    <p class="release-note">Coming soon to the App Store</p>
+    <a class="store-badge" href="https://apps.apple.com/app/id6816365297"><picture><source srcset="appstore-white-en.svg" media="(prefers-color-scheme: dark)"><img src="appstore-black-en.svg" width="156" height="52" alt="Download on the App Store"></picture></a>
 <div class="showcase" lang="en" aria-labelledby="screens-en">
 <h3 id="screens-en">Take a look inside</h3>
 <p class="showcase-hint">Swipe through the screens. Tap an image for a closer look.</p>
 <div class="screen-gallery" role="group" aria-label="Take a look inside">
-<figure><a href="trata-en-01.webp"><img src="trata-en-01.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Home. Your month, at a glance"></a><figcaption>01 · Home</figcaption></figure>
-<figure><a href="trata-en-02.webp"><img src="trata-en-02.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Expense entry. Quick entry. Back to your day."></a><figcaption>02 · Expense entry</figcaption></figure>
-<figure><a href="trata-en-03.webp"><img src="trata-en-03.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Analytics. See where your money goes"></a><figcaption>03 · Analytics</figcaption></figure>
-<figure><a href="trata-en-04.webp"><img src="trata-en-04.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Budget. Know what you can spend today"></a><figcaption>04 · Budget</figcaption></figure>
-<figure><a href="trata-en-05.webp"><img src="trata-en-05.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Trip. Shared trip. Just your share."></a><figcaption>05 · Trip</figcaption></figure>
-<figure><a href="trata-en-06.webp"><img src="trata-en-06.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Accounts. All accounts. One total."></a><figcaption>06 · Accounts</figcaption></figure>
+<figure><a href="trata-en-01.webp"><img src="trata-en-01.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Home. Your month in one number"></a><figcaption>01 · Home</figcaption></figure>
+<figure><a href="trata-en-02.webp"><img src="trata-en-02.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Auto-logging. Paid by phone — already logged"></a><figcaption>02 · Auto-logging</figcaption></figure>
+<figure><a href="trata-en-03.webp"><img src="trata-en-03.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Cash entry. Amount, category, done"></a><figcaption>03 · Cash entry</figcaption></figure>
+<figure><a href="trata-en-04.webp"><img src="trata-en-04.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Analytics. Month forecast and where the money goes"></a><figcaption>04 · Analytics</figcaption></figure>
+<figure><a href="trata-en-05.webp"><img src="trata-en-05.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Countries map. Where you have been, on a map"></a><figcaption>05 · Countries map</figcaption></figure>
+<figure><a href="trata-en-06.webp"><img src="trata-en-06.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Trip with friends. Who paid what and who owes whom"></a><figcaption>06 · Trip with friends</figcaption></figure>
+<figure><a href="trata-en-07.webp"><img src="trata-en-07.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Utilities. What is paid and what is still due"></a><figcaption>07 · Utilities</figcaption></figure>
+<figure><a href="trata-en-08.webp"><img src="trata-en-08.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Business. Orders, cash drawer and shares"></a><figcaption>08 · Business</figcaption></figure>
+<figure><a href="trata-en-09.webp"><img src="trata-en-09.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Family. Your partner's purchases on your screen"></a><figcaption>09 · Family</figcaption></figure>
 </div>
 </div>
     <h3>What you can do</h3>
     <ul>
       <li>Track expenses, income, refunds, and transfers between Accounts in multiple currencies, with official exchange rates from the National Bank of Moldova.</li>
       <li>Set a monthly budget and category limits. Use Analytics to review a month, a day, or a date range.</li>
-      <li>Set up a Wallet automation in Shortcuts to save in-person Apple Pay purchases. For a new merchant, choose a category; Trata remembers it for future purchases. This does not connect Trata to your bank or make payments.</li>
+      <li>Log purchases you pay for with your phone automatically: set up a Wallet automation in Shortcuts once. For a new merchant, choose a category; Trata remembers it for future purchases. This does not connect Trata to your bank or make payments.</li>
       <li>Add expenses manually, with Siri or widgets, by scanning a receipt on your iPhone, or from a Wallet statement screenshot.</li>
       <li>Plan Trips with dates, a budget, and a currency. Include advance bookings, split a Shared bill with friends, and see who owes what. Only your share counts toward your personal expenses.</li>
       <li>Group recorded expenses in Events to see what a celebration cost. You choose which expenses to include; matching dates do not add them automatically.</li>
       <li>Track cars and motorcycles in Vehicles: fuel, maintenance, Cost per km, document photos, validity dates, and reminders. Distance estimates use your records, not location tracking.</li>
-      <li>Keep Savings goals, Debts, and Recurring payments in one place.</li>
+      <li>Family: see your partner's purchases on your iPhone, counted in your monthly budget.</li>
+      <li>Keep a small business in Business: orders, the cash drawer and partners' shares, separate from personal spending.</li>
+      <li>Keep Savings goals, Debts, Utilities and Recurring payments in one place.</li>
       <li>Use Face ID protection, create a backup, or export transactions to CSV or JSON.</li>
     </ul>
     <p>No account, ads, or usage tracking. Your records stay on your device and, when enabled, in your private iCloud database. The developer cannot access that database.</p>
     <p>Trata is available in Russian, English, and Romanian. It follows your iPhone language. If none of your iPhone's preferred languages is available, Trata uses English. To choose a language, open Settings → Language in Trata (it changes after you reopen Trata), or iOS Settings → Trata → Language (under Apps on newer iOS versions).</p>
 <!-- ASTRA8:plans:en:start -->
-<section class="plan-comparison card" lang="en" aria-labelledby="plans-en"><h2 id="plans-en">Free and Pro</h2><div class="plan-columns"><div class="plan-column"><h3>Everyday tracking is free</h3><ul><li>Manual entry, receipts, statement import and Apple Pay automatic logging with Shortcuts.</li><li>Home, history, search, categories, Available today and a monthly limit.</li><li>Analytics for this month and last month, up to 3 accounts with transfers, and currencies.</li><li>iCloud, Face ID, hidden amounts, backups and export.</li><li>Widgets, Siri, language, the bottom bar and evening summaries.</li></ul></div><div class="plan-column"><h3>Trata Pro</h3><ul><li>Trips, events, shared bills and debts.</li><li>Vehicles: fill-ups, cost per km, maintenance and documents.</li><li>Category limits and budget transfers, analytics for any period.</li><li>Unlimited accounts, savings goals and recurring payments.</li></ul></div></div><p class="plan-note">Eligible new subscribers get 7 days free. The subscription becomes paid afterwards unless cancelled. Lifetime access has no trial.</p><p>Family Sharing lets you share Pro with your Apple family. Your personal records do not become shared records.</p><p><strong>Saved records stay available: after Pro ends, you can still view, edit, delete and export your data.</strong></p><p><a href="help.html?lang=en#pro-en">Guide</a> · <a href="support.html#pro-en">Support</a></p></section>
+<section class="plan-comparison card" lang="en" aria-labelledby="plans-en"><h2 id="plans-en">Free and Pro</h2><div class="plan-columns"><div class="plan-column"><h3>Everyday tracking is free</h3><ul><li>Manual entry, receipts, statement import and automatic logging from Wallet with Shortcuts.</li><li>Home, history, search, categories, Available today and a monthly limit.</li><li>Analytics for this month and last month, up to 3 accounts with transfers, and currencies.</li><li>iCloud, Face ID, hidden amounts, backups and export.</li><li>Widgets, Siri, language, the bottom bar and evening summaries.</li></ul></div><div class="plan-column"><h3>Trata Pro</h3><ul><li>Trips, events, shared bills and debts.</li><li>Family, Business and utilities.</li><li>Vehicles: fill-ups, cost per km, maintenance and documents.</li><li>Category limits and budget transfers, analytics for any period.</li><li>Unlimited accounts, savings goals and recurring payments.</li></ul></div></div><p class="plan-note">Eligible new subscribers get 7 days free. The subscription becomes paid afterwards unless cancelled. Lifetime access has no trial.</p><p>Family Sharing lets you share Pro with your Apple family. Your personal records do not become shared records.</p><p><strong>Saved records stay available: after Pro ends, you can still view, edit, delete and export your data.</strong></p><p><a href="help.html?lang=en#pro-en">Guide</a> · <a href="support.html#pro-en">Support</a></p></section>
 <!-- ASTRA8:plans:en:end -->
 <!-- ASTRA8:guide:en:start -->
 <aside class="card guide-link" lang="en"><h3><a href="help.html?lang=en#en">How to use Trata</a></h3><p>Step-by-step help with automatic logging, budgets, trips, accounts and cost per km.</p></aside>
@@ -163,35 +176,40 @@
   <section class="card" id="ro" lang="ro">
     <h2>Trata — cheltuielile de zi cu zi</h2>
     <p>Vezi unde se duc banii și cât cheltuiești în fiecare lună. Înregistrează rapid o cheltuială, stabilește bugete pe categorii și verifică Disponibil azi în Acasă.</p>
-    <p class="release-note">În curând în App Store</p>
+    <a class="store-badge" href="https://apps.apple.com/app/id6816365297"><picture><source srcset="appstore-white-ro.svg" media="(prefers-color-scheme: dark)"><img src="appstore-black-ro.svg" width="156" height="52" alt="Descarcă din App Store"></picture></a>
 <div class="showcase" lang="ro" aria-labelledby="screens-ro">
 <h3 id="screens-ro">Vezi cum arată aplicația</h3>
 <p class="showcase-hint">Glisează pentru a vedea ecranele. Apasă o imagine pentru detalii.</p>
 <div class="screen-gallery" role="group" aria-label="Vezi cum arată aplicația">
-<figure><a href="trata-ro-01.webp"><img src="trata-ro-01.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Acasă. Cheltuielile lunii, la îndemână"></a><figcaption>01 · Acasă</figcaption></figure>
-<figure><a href="trata-ro-02.webp"><img src="trata-ro-02.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Introducerea cheltuielii. Adaugă rapid o cheltuială"></a><figcaption>02 · Introducerea cheltuielii</figcaption></figure>
-<figure><a href="trata-ro-03.webp"><img src="trata-ro-03.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Analiză. Vezi unde se duc banii"></a><figcaption>03 · Analiză</figcaption></figure>
-<figure><a href="trata-ro-04.webp"><img src="trata-ro-04.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Buget. Vezi cât poți cheltui azi"></a><figcaption>04 · Buget</figcaption></figure>
-<figure><a href="trata-ro-05.webp"><img src="trata-ro-05.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Călătorie. În călătorie, doar partea ta"></a><figcaption>05 · Călătorie</figcaption></figure>
-<figure><a href="trata-ro-06.webp"><img src="trata-ro-06.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Conturi. Toate conturile. Un singur total."></a><figcaption>06 · Conturi</figcaption></figure>
+<figure><a href="trata-ro-01.webp"><img src="trata-ro-01.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Acasă. Toată luna, într-o cifră"></a><figcaption>01 · Acasă</figcaption></figure>
+<figure><a href="trata-ro-02.webp"><img src="trata-ro-02.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Înregistrare automată. Ai plătit cu telefonul — e deja notat"></a><figcaption>02 · Înregistrare automată</figcaption></figure>
+<figure><a href="trata-ro-03.webp"><img src="trata-ro-03.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Numerar. Suma, categoria, gata"></a><figcaption>03 · Numerar</figcaption></figure>
+<figure><a href="trata-ro-04.webp"><img src="trata-ro-04.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Analiză. Prognoza lunii și unde se duc banii"></a><figcaption>04 · Analiză</figcaption></figure>
+<figure><a href="trata-ro-05.webp"><img src="trata-ro-05.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Harta țărilor. Unde ai fost, pe hartă"></a><figcaption>05 · Harta țărilor</figcaption></figure>
+<figure><a href="trata-ro-06.webp"><img src="trata-ro-06.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Călătorie cu prietenii. Cine cât a plătit și cine cui datorează"></a><figcaption>06 · Călătorie cu prietenii</figcaption></figure>
+<figure><a href="trata-ro-07.webp"><img src="trata-ro-07.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Utilități. Ce e plătit și ce mai e de plătit"></a><figcaption>07 · Utilități</figcaption></figure>
+<figure><a href="trata-ro-08.webp"><img src="trata-ro-08.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Afaceri. Comenzi, casa de bani și cote"></a><figcaption>08 · Afaceri</figcaption></figure>
+<figure><a href="trata-ro-09.webp"><img src="trata-ro-09.webp" width="660" height="1434" loading="lazy" decoding="async" alt="Trata · Familia. Cumpărăturile partenerului pe ecranul tău"></a><figcaption>09 · Familia</figcaption></figure>
 </div>
 </div>
     <h3>Ce poți face</h3>
     <ul>
       <li>Urmărește cheltuieli, venituri, rambursări și transferuri între Conturi în mai multe monede, cu cursurile oficiale ale Băncii Naționale a Moldovei.</li>
       <li>Stabilește un buget lunar și limite pe categorii. În Analiză poți vedea o lună, o zi sau o perioadă.</li>
-      <li>Configurează o automatizare Wallet în Scurtături pentru a salva cumpărăturile plătite cu Apple Pay la terminal. Pentru un comerciant nou, alegi categoria; Trata o reține pentru cumpărăturile viitoare. Aplicația nu se conectează la bancă și nu efectuează plăți.</li>
+      <li>Cumpărăturile plătite cu telefonul se notează automat: configurezi o dată o automatizare Wallet în Scurtături. Pentru un comerciant nou, alegi categoria; Trata o reține pentru cumpărăturile viitoare. Aplicația nu se conectează la bancă și nu efectuează plăți.</li>
       <li>Adaugă cheltuieli manual, prin Siri sau widgeturi, prin scanarea unui bon pe iPhone ori dintr-o captură a extrasului Wallet.</li>
       <li>Planifică în Călătorii datele, bugetul și moneda. Include rezervările plătite în avans, împarte o Notă comună cu prietenii și vezi cine cui datorează bani. În cheltuielile tale personale intră doar partea ta.</li>
       <li>Grupează cheltuieli deja înregistrate în Evenimente, ca să vezi cât a costat o sărbătoare. Tu alegi ce incluzi; cheltuielile nu se adaugă automat după dată.</li>
       <li>Gestionează automobile și motociclete în Vehicule: combustibil, întreținere, Cost pe km, fotografii ale documentelor, perioade de valabilitate și mementouri. Distanța se estimează din înregistrările tale, fără urmărirea locației.</li>
-      <li>Păstrează Economii, Datorii și Plăți recurente într-un singur loc.</li>
+      <li>Familia: vezi cumpărăturile partenerului pe iPhone-ul tău, incluse în bugetul lunii.</li>
+      <li>Ține o afacere mică în Afaceri: comenzi, casa de bani și cotele partenerilor, separat de cheltuielile personale.</li>
+      <li>Păstrează Economii, Datorii, Utilități și Plăți recurente într-un singur loc.</li>
       <li>Activează protecția Face ID, creează o copie de siguranță sau exportă tranzacțiile în CSV ori JSON.</li>
     </ul>
     <p>Fără cont, reclame sau urmărirea utilizării. Înregistrările rămân pe dispozitivul tău și, când iCloud este activat, în baza ta de date privată din iCloud. Dezvoltatorul nu are acces la această bază.</p>
     <p>Trata este disponibilă în rusă, engleză și română. Folosește limba iPhone-ului tău. Dacă niciuna dintre limbile preferate ale iPhone-ului nu este disponibilă, Trata folosește engleza. Pentru a alege limba, deschide Setări → Limbă în Trata (se schimbă după ce redeschizi Trata) sau Configurări iOS → Trata → Limbă (în secțiunea Aplicații pe versiunile iOS mai noi).</p>
 <!-- ASTRA8:plans:ro:start -->
-<section class="plan-comparison card" lang="ro" aria-labelledby="plans-ro"><h2 id="plans-ro">Gratuit și Pro</h2><div class="plan-columns"><div class="plan-column"><h3>Evidența zilnică este gratuită</h3><ul><li>Introducere manuală, bonuri, import de extras și înregistrare automată Apple Pay prin Scurtături.</li><li>Acasă, istoric, căutare, categorii, Disponibil azi și limita lunară.</li><li>Analiză pentru luna curentă și cea trecută, până la 3 conturi cu transferuri și monede.</li><li>iCloud, Face ID, sume ascunse, copii de siguranță și export.</li><li>Widgeturi, Siri, limba, bara de jos și rezumatul de seară.</li></ul></div><div class="plan-column"><h3>Trata Pro</h3><ul><li>Călătorii, evenimente, note comune și datorii.</li><li>Vehicule: alimentări, cost pe km, întreținere și documente.</li><li>Limite pe categorii și transferuri de buget, analiză pentru orice perioadă.</li><li>Conturi nelimitate, economii și plăți recurente.</li></ul></div></div><p class="plan-note">Abonații noi eligibili au 7 zile gratuite. Apoi abonamentul devine plătit dacă nu îl anulezi. Accesul pe viață nu are perioadă de probă.</p><p>Partajarea familială îți permite să împarți Pro cu familia Apple. Înregistrările tale personale nu devin comune.</p><p><strong>Înregistrările rămân disponibile: după expirarea Pro poți vedea, modifica, șterge și exporta datele tale.</strong></p><p><a href="help.html?lang=ro#pro-ro">Ghid</a> · <a href="support.html#pro-ro">Asistență</a></p></section>
+<section class="plan-comparison card" lang="ro" aria-labelledby="plans-ro"><h2 id="plans-ro">Gratuit și Pro</h2><div class="plan-columns"><div class="plan-column"><h3>Evidența zilnică este gratuită</h3><ul><li>Introducere manuală, bonuri, import de extras și înregistrare automată din Wallet prin Scurtături.</li><li>Acasă, istoric, căutare, categorii, Disponibil azi și limita lunară.</li><li>Analiză pentru luna curentă și cea trecută, până la 3 conturi cu transferuri și monede.</li><li>iCloud, Face ID, sume ascunse, copii de siguranță și export.</li><li>Widgeturi, Siri, limba, bara de jos și rezumatul de seară.</li></ul></div><div class="plan-column"><h3>Trata Pro</h3><ul><li>Călătorii, evenimente, note comune și datorii.</li><li>Familia, Afaceri și utilități.</li><li>Vehicule: alimentări, cost pe km, întreținere și documente.</li><li>Limite pe categorii și transferuri de buget, analiză pentru orice perioadă.</li><li>Conturi nelimitate, economii și plăți recurente.</li></ul></div></div><p class="plan-note">Abonații noi eligibili au 7 zile gratuite. Apoi abonamentul devine plătit dacă nu îl anulezi. Accesul pe viață nu are perioadă de probă.</p><p>Partajarea familială îți permite să împarți Pro cu familia Apple. Înregistrările tale personale nu devin comune.</p><p><strong>Înregistrările rămân disponibile: după expirarea Pro poți vedea, modifica, șterge și exporta datele tale.</strong></p><p><a href="help.html?lang=ro#pro-ro">Ghid</a> · <a href="support.html#pro-ro">Asistență</a></p></section>
 <!-- ASTRA8:plans:ro:end -->
 <!-- ASTRA8:guide:ro:start -->
 <aside class="card guide-link" lang="ro"><h3><a href="help.html?lang=ro#ro">Cum folosești Trata</a></h3><p>Instrucțiuni pas cu pas: înregistrare automată, buget, călătorii, conturi și cost pe km.</p></aside>
